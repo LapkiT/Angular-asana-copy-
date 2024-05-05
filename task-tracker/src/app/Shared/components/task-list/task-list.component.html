@@ -1,1 +1,24 @@
-<p>task-list works!</p>
+<div class="task-filter">
+    <app-task-filter (filterChanged)="onFilterChange($event)"></app-task-filter>
+  </div>
+  <mat-card class="task-list">
+    <ng-container *ngIf="tasks$ | async as tasks; else noTasks">
+      <mat-card *ngFor="let task of tasks" class="task-item">
+        <mat-card-title>{{ task.title }}</mat-card-title>
+        <mat-card-content>
+          <p><strong>Status:</strong> {{ task.status }}</p>
+          <p><strong>Priority:</strong> {{ task.priority }}</p>
+          <p><strong>Deadline:</strong> {{ task.deadline | date }}</p>
+          <p><strong>Assignees:</strong> {{ task.assignees.join(', ') }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="editTask(task.id)">Edit</button>
+          <button mat-button color="warn" (click)="deleteTask(task.id)">Delete</button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+    <ng-template #noTasks>
+      <mat-card>No tasks found.</mat-card>
+    </ng-template>
+  </mat-card>
+  

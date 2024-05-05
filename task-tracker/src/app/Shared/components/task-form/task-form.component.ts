@@ -1,21 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskServiceService } from '../../Services/task-service.service';
 import { Priority, Status } from '../../interfaces/task-models';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, MatInputModule, MatButtonModule],
   templateUrl: './task-form.component.html',
-  styleUrl: './task-form.component.scss'
+  styleUrls: ['./task-form.component.scss']
 })
 export class TaskFormComponent implements OnInit {
   taskForm!: FormGroup;
   taskId!: string | null;
 
-  constructor(private fb: FormBuilder, private taskService: TaskServiceService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private fb: FormBuilder, 
+    private taskService: TaskServiceService, 
+    private router: Router, 
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.taskId = this.route.snapshot.paramMap.get('id');

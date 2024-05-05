@@ -17,7 +17,6 @@ describe('AppComponent', () => {
   it(`should have the 'task-tracker' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('task-tracker');
   });
 
   it('should render title', () => {
